@@ -1,21 +1,27 @@
 "use client"
+
 import React from "react"
 import { Todo } from "../types"
 import Image from "next/image"
-import { deleteTodo } from "../actions/todos"
-import { useRouter } from "next/navigation"
+interface TodoItemProps {
+  todo: Todo
+  onToggleComplete: (id: string, completed: boolean) => Promise<void>
+  onDelete: (id: string) => Promise<void>
+}
 
-const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
-  const router = useRouter()
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteTodo(id)
-      router.refresh()
-    } catch (error) {
-      console.error("Error deleting todo:", error)
-    }
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  onToggleComplete,
+  onDelete,
+}) => {
+  const handleToggleClick = async () => {
+    await onToggleComplete(todo.id, !todo.completed)
   }
+
+  const handleDeleteClick = async () => {
+    await onDelete(todo.id)
+  }
+
   return (
     <div className="flex items-center justify-between bg-[#262626] p-3 px-4 rounded-lg shadow-md mb-3">
       <div className="flex items-start flex-grow">
@@ -28,7 +34,7 @@ const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
                 : "border-nooro-blue"
             }
           `}
-          // onClick={() => onToggleComplete(todo.id)}
+          onClick={handleToggleClick}
         >
           {todo.completed && (
             <svg
@@ -47,9 +53,10 @@ const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
             </svg>
           )}
         </div>
+        {/* Todo Title */}
         <p
           className={`ml-4 text-gray-200 text-base break-words ${
-            todo.completed ? "line-through text-gray-500" : ""
+            todo.completed ? "line-through text-gray-500" : "" // Strikethrough for completed tasks
           }`}
         >
           {todo.title}
@@ -57,16 +64,16 @@ const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
       </div>
 
       <button
-        className="ml-4 rounded-md hover:opacity-90 transition-colors duration-200 flex-shrink-0 cursor-pointer"
+        className="ml-4 p-2 rounded-md hover:bg-gray-700 transition-colors duration-200 flex-shrink-0"
         aria-label="Delete task"
-        onClick={() => handleDelete(Number(todo.id))}
+        onClick={handleDeleteClick}
       >
         <Image
           src="/trash.svg"
           alt="Trash Icon"
           width={20}
           height={20}
-          className="w-8 h-8 mx-auto mb-5"
+          className="w-6 h-6"
         />
       </button>
     </div>

@@ -1,20 +1,82 @@
-import React from "react"
+"use client"
+
+import React, { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import CreateTaskButton from "./components/CreateTaskButton"
-import { fetchTodos } from "./actions/todos"
-import { Todo } from "./types"
 import TodoItem from "./components/TodoItem"
+import { fetchTodos, updateTodo, deleteTodo } from "./actions/todos"
+import { Todo } from "./types"
 
-export default async function TodoApp() {
-  const todos = await fetchTodos()
-  console.log("Fetched todos:", todos)
+const sortTodos = (todos: Todo[]): Todo[] => {
+  return [...todos].sort((a, b) => {
+    if (a.completed === b.completed) {
+      return 0
+    }
+    return a.completed ? 1 : -1
+  })
+}
 
-  const incompleteCount = todos.filter(
-    (t: { completed: boolean }) => !t.completed
-  ).length
-  const completedCount = todos.filter(
-    (t: { completed: boolean }) => t.completed
-  ).length
+export default function TodoApp() {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const loadTodos = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const fetchedTodos: Todo[] = await fetchTodos()
+      const sortedTodos = sortTodos(fetchedTodos)
+      setTodos(sortedTodos)
+    } catch (err) {
+      console.error("Failed to fetch todos:", err)
+      setError("Failed to load tasks. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadTodos()
+  }, [loadTodos])
+
+  const handleToggleComplete = async (id: string, completed: boolean) => {
+    setTodos((prevTodos) => {
+      const updatedTodos = prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: completed } : todo
+      )
+      return sortTodos(updatedTodos)
+    })
+
+    try {
+      await updateTodo(Number(id), { completed: completed })
+      setError(null)
+    } catch (error) {
+      console.error("Error toggling todo completion:", error)
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !completed } : todo
+        )
+      )
+      setError("Failed to update task. Please try again.")
+    }
+  }
+
+  const handleDeleteTodo = async (id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+
+    try {
+      await deleteTodo(Number(id))
+      setError(null)
+    } catch (error) {
+      console.error("Error deleting todo:", error)
+      setError("Failed to delete task. Please try again.")
+      loadTodos()
+    }
+  }
+
+  const incompleteCount = todos.filter((t) => !t.completed).length
+  const completedCount = todos.filter((t) => t.completed).length
 
   return (
     <div className="min-h-screen bg-bg-gray text-white relative">
@@ -41,7 +103,13 @@ export default async function TodoApp() {
         </div>
         <hr className="border-[#333333]" />
 
-        {todos.length === 0 ? (
+        {loading && (
+          <div className="text-center py-16 text-gray-400">
+            Loading tasks...
+          </div>
+        )}
+        {error && <div className="text-center py-16 text-red-500">{error}</div>}
+        {!loading && !error && todos.length === 0 ? (
           <div className="text-center py-16">
             <Image
               src="/Clipboard.svg"
@@ -58,10 +126,14 @@ export default async function TodoApp() {
             </p>
           </div>
         ) : (
-          <ul className="pt-4">
+          <ul className="mt-6">
             {todos.map((todo: Todo) => (
               <li key={todo.id} className="mb-2">
-                <TodoItem todo={todo} />
+                <TodoItem
+                  todo={todo}
+                  onToggleComplete={handleToggleComplete}
+                  onDelete={handleDeleteTodo}
+                />
               </li>
             ))}
           </ul>
