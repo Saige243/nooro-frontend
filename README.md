@@ -114,7 +114,7 @@ src/
 1. Click on any task card from the home page
 2. Modify the title or color as needed
 3. Click "Save Changes" to update
-4. Use "Cancel" or back button to discard changes
+4. Use back button to discard changes
 
 ### Managing Tasks
 
