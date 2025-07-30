@@ -34,7 +34,7 @@ Before running this application, make sure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-frontend-repo-url>
+git clone <https://github.com/Saige243/nooro-frontend.git>
 cd todo-frontend
 ```
 
