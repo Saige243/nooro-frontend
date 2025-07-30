@@ -1,3 +1,5 @@
+
+![2025-07-30 14 05 09](https://github.com/user-attachments/assets/dbee4465-52d4-434f-b672-00f22886fba9)
 # Nooro Todo List App - Frontend
 
 A modern, responsive Todo List application built with Next.js 15, TypeScript, and Tailwind CSS. This frontend communicates with an Express.js backend API to provide a complete task management experience.
