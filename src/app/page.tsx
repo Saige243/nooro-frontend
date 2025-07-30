@@ -1,31 +1,17 @@
 import React from "react"
 import Image from "next/image"
-import { PlusCircle } from "lucide-react"
+import CreateTaskButton from "./components/CreateTaskButton"
 
 export default function TodoApp() {
   return (
-    <div className="min-h-screen bg-bg-gray text-white">
-      <div className="max-w-2xl mx-auto px-6 py-8">
-        <div className="text-center mb-8 w-full ">
-          <div className="flex items-center justify-center gap-2 mb-8">
-            <Image
-              src="/rocket.svg"
-              alt="Rocket Icon"
-              width={20}
-              height={20}
-              className="w-5 h-5"
-            />
-            <h1 className="text-2xl text-nooro-blue font-extrabold">
-              Todo <span className="text-nooro-purple">App</span>
-            </h1>
-          </div>
-
-          <button className="w-full bg-nooro-dark-blue hover:bg-blue-700 text-white py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors">
-            <span className="font-bold text-sm">Create Task</span>
-            <PlusCircle className="w-4 h-4" />
-          </button>
+    <div className="min-h-screen bg-bg-gray text-white relative">
+      <div className="absolute w-full flex justify-center -mt-6 z-10">
+        <div className="max-w-2xl w-full px-6 ">
+          <CreateTaskButton />
         </div>
+      </div>
 
+      <div className="max-w-2xl mx-auto px-6 py-8 mt-8">
         <div className="flex justify-between items-center mb-8 text-sm text-gray-400">
           <div className="flex items-center gap-2">
             <span className="text-nooro-blue">Tasks</span>

@@ -9,8 +9,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-bg-gray: #1a1a1a;
-  --color-header-gray: #0d0d0d;
+  --color-hero-gray: #0d0d0d;
   --color-nooro-gray: #808080;
+  --color-nooro-input-gray: #262626;
   --color-nooro-light-gray: #d9d9d9;
   --color-nooro-blue: #4ea8de;
   --color-nooro-dark-blue: #1e6f9f;
