@@ -5,13 +5,13 @@ import { Todo } from "../types"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 
-interface TodoItemProps {
+interface TaskItemProps {
   todo: Todo
   onToggleComplete: (id: string, completed: boolean) => Promise<void>
   onDelete: (id: string) => Promise<void>
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({
+const TaskItem: React.FC<TaskItemProps> = ({
   todo,
   onToggleComplete,
   onDelete,
@@ -92,4 +92,4 @@ const TodoItem: React.FC<TodoItemProps> = ({
   )
 }
 
-export default TodoItem
+export default TaskItem

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import TodoForm from "../../components/TodoForm"
+import { Check } from "lucide-react"
+import TodoForm from "../../components/TaskItemForm"
 import { fetchTodoById, updateTodo } from "../../actions/todos"
 import { Todo } from "../../types"
 
@@ -87,7 +88,12 @@ const EditTaskPage: React.FC<EditTaskPageProps> = ({ params }) => {
     <TodoForm
       initialData={todo}
       onSubmit={handleUpdateSubmit}
-      buttonText="Save Changes"
+      buttonText={
+        <div className="flex items-center gap-2">
+          Save
+          <Check size={16} />
+        </div>
+      }
       onSuccess={handleSuccess}
       onCancel={handleCancel}
       showBackButton={true}

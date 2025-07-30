@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nooro Todo List App - Frontend
 
-## Getting Started
+A modern, responsive Todo List application built with Next.js 15, TypeScript, and Tailwind CSS. This frontend communicates with an Express.js backend API to provide a complete task management experience.
 
-First, run the development server:
+## 🚀 Features
+
+- **Task Management**: Create, edit, delete, and toggle completion status of tasks
+- **Responsive Design**: Optimized for desktop and mobile devices
+- **Real-time Updates**: Instant UI updates when tasks are modified
+- **Color Coding**: Assign colors to tasks for better organization
+- **Task Statistics**: View total tasks and completion count
+- **Confirmation Dialogs**: Safe deletion with confirmation prompts
+- **Modern UI**: Clean, intuitive interface following contemporary design principles
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks (useState, useEffect)
+- **Navigation**: Next.js Navigation
+- **HTTP Client**: Fetch API
+
+## 📋 Prerequisites
+
+Before running this application, make sure you have:
+
+- Node.js 18+ installed
+- npm or yarn package manager
+- The backend API running (see backend repository)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-frontend-repo-url>
+cd todo-frontend
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+Make sure this URL matches your backend API server address.
+
+### 4. Start the Development Server
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── edit/
+│   │   └── [id]/
+│   │       └── page.tsx          # Edit task page
+│   ├── new/
+│   │   └── page.tsx              # Create new task page
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Home page (task list)
+├── components/
+│   ├── ConfirmDialog.tsx         # Confirmation dialog component
+│   ├── TaskCard.tsx              # Individual task card component
+│   └── TodoForm.tsx              # Task creation/editing form
+├── actions/
+│   └── todos.ts                  # API calls and server actions
+└── types/
+    └── index.ts                  # TypeScript type definitions
+```
 
-## Learn More
+## 🔧 Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Start development server
+- `npm run build` - Build production application
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript compiler check
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Creating a Task
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Click the "Create Task" button on the home page
+2. Enter a task title (required)
+3. Select a color for the task
+4. Click "Create Task" to save
 
-## Deploy on Vercel
+### Editing a Task
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Click on any task card from the home page
+2. Modify the title or color as needed
+3. Click "Save Changes" to update
+4. Use "Cancel" or back button to discard changes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Managing Tasks
+
+- Toggle completion status using the checkbox on each task
+- Delete tasks using the delete button (with confirmation)
+- View task statistics at the top of the page
+
+## 🎯 Performance Optimizations
+
+- **Next.js App Router**: Efficient routing and rendering
+- **Component Reusability**: Modular components reduce bundle size
+- **Optimistic Updates**: Immediate UI feedback for better UX
+- **Error Boundaries**: Graceful error handling
+- **TypeScript**: Enhanced development experience and fewer runtime errors
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **API Connection Errors**
+
+   - Ensure the backend server is running
+   - Check the `NEXT_PUBLIC_API_URL` environment variable
+   - Verify CORS settings on the backend
+
+2. **Build Errors**
+
+   - Run `npm run type-check` to identify TypeScript issues
+   - Ensure all dependencies are properly installed
+
+3. **Styling Issues**
+   - Verify Tailwind CSS is properly configured
+   - Check for conflicting CSS classes
+
+## 📝 Development Notes
+
+- Uses Next.js 15 App Router with the new `React.use()` API for params
+- Implements proper TypeScript typing throughout the application
+- Follows React best practices for state management and component composition
+- Includes comprehensive error handling and user feedback
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is part of a take-home assessment and is for evaluation purposes.
+
+---
+
+**Note**: Make sure the backend API is running before starting the frontend application. Refer to the backend repository for setup instructions.

@@ -11,13 +11,13 @@ interface TaskFormProps {
     data: { title: string; color: string; completed?: boolean },
     id?: string
   ) => Promise<void>
-  buttonText: string
+  buttonText: React.ReactNode
   onSuccess?: () => void
   onCancel?: () => void
   showBackButton?: boolean
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({
+const TaskItemForm: React.FC<TaskFormProps> = ({
   initialData,
   onSubmit,
   buttonText,
@@ -168,4 +168,4 @@ const TaskForm: React.FC<TaskFormProps> = ({
   )
 }
 
-export default TaskForm
+export default TaskItemForm

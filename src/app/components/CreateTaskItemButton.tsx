@@ -3,7 +3,7 @@ import React from "react"
 import { PlusCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-function CreateTaskButton() {
+function CreateTaskItemButton() {
   const router = useRouter()
 
   return (
@@ -17,4 +17,4 @@ function CreateTaskButton() {
   )
 }
 
-export default CreateTaskButton
+export default CreateTaskItemButton

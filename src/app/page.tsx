@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
-import CreateTaskButton from "./components/CreateTaskButton"
-import TodoItem from "./components/TodoItem"
+import CreateTaskItemButton from "./components/CreateTaskItemButton"
+import TaskItem from "./components/TaskItem"
 import { fetchTodos, updateTodo, deleteTodo } from "./actions/todos"
 import { Todo } from "./types"
 
@@ -77,12 +77,13 @@ export default function TodoApp() {
 
   const incompleteCount = todos.filter((t) => !t.completed).length
   const completedCount = todos.filter((t) => t.completed).length
+  const totalCount = todos.length
 
   return (
     <div className="min-h-screen bg-bg-gray text-white relative">
       <div className="absolute w-full flex justify-center -mt-6 z-10">
         <div className="max-w-2xl w-full px-6 ">
-          <CreateTaskButton />
+          <CreateTaskItemButton />
         </div>
       </div>
 
@@ -97,7 +98,7 @@ export default function TodoApp() {
           <div className="flex items-center gap-2">
             <span className="text-nooro-purple">Completed</span>
             <span className="bg-gray-700 px-2 py-1 rounded-full text-xs">
-              {completedCount}
+              {completedCount} of {totalCount}
             </span>
           </div>
         </div>
@@ -129,7 +130,7 @@ export default function TodoApp() {
           <ul className="mt-6">
             {todos.map((todo: Todo) => (
               <li key={todo.id} className="mb-2">
-                <TodoItem
+                <TaskItem
                   todo={todo}
                   onToggleComplete={handleToggleComplete}
                   onDelete={handleDeleteTodo}
