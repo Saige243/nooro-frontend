@@ -86,7 +86,7 @@ export default function TodoApp() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 py-8 mt-8">
+      <div className="max-w-2xl mx-auto px-6 py-8">
         <div className="flex justify-between items-center mb-4 text-sm text-gray-400 mt-10">
           <div className="flex items-center gap-2">
             <span className="text-nooro-blue">Tasks</span>

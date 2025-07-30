@@ -3,6 +3,8 @@
 import React from "react"
 import { Todo } from "../types"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+
 interface TodoItemProps {
   todo: Todo
   onToggleComplete: (id: string, completed: boolean) => Promise<void>
@@ -14,16 +16,27 @@ const TodoItem: React.FC<TodoItemProps> = ({
   onToggleComplete,
   onDelete,
 }) => {
-  const handleToggleClick = async () => {
+  const router = useRouter()
+
+  const handleToggleClick = async (e: React.MouseEvent) => {
+    e.stopPropagation()
     await onToggleComplete(todo.id, !todo.completed)
   }
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation()
     await onDelete(todo.id)
   }
 
+  const handleItemClick = () => {
+    router.push(`/edit-todo/${todo.id}`)
+  }
+
   return (
-    <div className="flex items-center justify-between bg-[#262626] p-3 px-4 rounded-lg shadow-md mb-3">
+    <div
+      className="flex items-center justify-between bg-[#262626] p-3 px-4 rounded-lg shadow-md mb-3 cursor-pointer" // Add cursor-pointer
+      onClick={handleItemClick}
+    >
       <div className="flex items-start flex-grow">
         <div
           className={`
@@ -53,10 +66,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
             </svg>
           )}
         </div>
-        {/* Todo Title */}
         <p
           className={`ml-4 text-gray-200 text-base break-words ${
-            todo.completed ? "line-through text-gray-500" : "" // Strikethrough for completed tasks
+            todo.completed ? "line-through text-gray-500" : ""
           }`}
         >
           {todo.title}
