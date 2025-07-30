@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { PlusCircle } from "lucide-react"
 import { ArrowLeft } from "lucide-react"
+import { createTodo } from "./../actions/todos"
 
 const COLORS = [
   "#FF3B30",
@@ -22,9 +23,19 @@ export default function CreateTaskPage() {
   const [title, setTitle] = useState("")
   const [selectedColor, setSelectedColor] = useState(COLORS[0])
 
-  const handleAddTask = () => {
-    console.log({ title, selectedColor })
-    router.push("/")
+  const handleAddTask = async () => {
+    if (!title.trim()) return
+
+    try {
+      await createTodo({
+        title: title.trim(),
+        color: selectedColor,
+        completed: false,
+      })
+      router.push("/")
+    } catch (error) {
+      console.error("Failed to create todo", error)
+    }
   }
 
   return (
