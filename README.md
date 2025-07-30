@@ -71,18 +71,21 @@ The application will be available at [http://localhost:3000](http://localhost:30
 ```
 src/
 ├── app/
-│   ├── edit/
+│   ├── create-task/
+│   │   └── page.tsx              # Create new task page
+│   ├── edit-todo/
 │   │   └── [id]/
 │   │       └── page.tsx          # Edit task page
-│   ├── new/
-│   │   └── page.tsx              # Create new task page
+│   ├── consts.ts                 # Consts
 │   ├── globals.css               # Global styles
 │   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Home page (task list)
+│   ├── page.tsx                  # Home page (task list)
+│   └── types.tsx                 # Types
 ├── components/
-│   ├── ConfirmDialog.tsx         # Confirmation dialog component
-│   ├── TaskCard.tsx              # Individual task card component
-│   └── TodoForm.tsx              # Task creation/editing form
+│   ├── CreateTaskItemButton.tsx  # Create Task Button
+│   ├── TaskItem.tsx              # Individual task card component
+│   ├── TaskItemForm.tsx          # Task creation/editing form
+│   └── TodoHero.tsx              # Todo App Hero section
 ├── actions/
 │   └── todos.ts                  # API calls and server actions
 └── types/
@@ -150,14 +153,6 @@ src/
 - Implements proper TypeScript typing throughout the application
 - Follows React best practices for state management and component composition
 - Includes comprehensive error handling and user feedback
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 
